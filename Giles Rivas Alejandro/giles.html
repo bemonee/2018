@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Notify Cards</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+  <style>
+    .formu {
+      border: 2px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col-sm formu col-md-6">
+        <div class="form-group mt-2">
+          <label for="modelo">Modelo</label>
+          <input type="text" class="form-control" id="modelo" placeholder="Model Car">
+        </div>
+        <div class="form-group">
+          <label for="marca">Marca</label>
+          <input type="text" class="form-control" id="marca" placeholder="Marca">
+        </div>
+        <div class="form-group">
+          <label for="valor">Valor</label>
+          <input type="number" class="form-control" id="valor" placeholder="0">
+        </div>
+        <div class="form-group">
+          <label for="color">Color</label>
+          <input type="text" class="form-control" id="color" placeholder="Color">
+        </div>
+        <button id="add" type="submit" class="btn btn-primary col-md-12 mb-2">Add</button>
+      </div>
+      <div class="col-md-6">
+        <table class="table table-striped formu mb-2">
+          <thead>
+            <tr>
+              <th scope="col">Modelo</th>
+              <th scope="col">Marca</th>
+              <th scope="col">Color</th>
+              <th scope="col">Valor</th>
+              <th scope="col-2">Botones</th>
+            </tr>
+          </thead>
+          <tbody id="bodyTable">
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-12">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Check
+            </th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+
+</body>
+<script src="./main.js"></script>
+
+
+</html>
