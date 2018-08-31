@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Patron decorador - Amoruso</title>
+	<link rel="stylesheet" href="">
+</head>
+<body>
+	
+<button onclick="Iniciar()">comprar sanguche</button>
+
+<script>
+	//constructor para decorar
+		function Sanguche() {
+	   		this.costo = function () {return 10;}
+	   	}
+
+	//decorador 1
+	function Queso( sanguche ){
+		const precio = sanguche.costo();
+		sanguche.costo = function() {
+			return precio + 5;
+		}
+	}
+
+	//decorador 2
+	function Salame( sanguche ){
+		const precio = sanguche.costo();
+		sanguche.costo = function() {
+			return precio + 4;
+		}
+	}
+
+		//iniciar decorados
+		function Iniciar(){
+			let sanguche = new Sanguche();
+			console.log("Valor inicial del sanguche: " + sanguche.costo());
+
+			Queso(sanguche);
+			console.log("Queso agregado, valor del sanguche " + sanguche.costo());
+
+			Salame( sanguche );
+			console.log("Salame agregado, valor del sanguche " + sanguche.costo());
+			
+		}
+
+</script>
+
+</body>
+</html>
