@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script type="text/javascript" src="script.js"></script>
+    <title>tp1</title>
+    <style media="screen">
+      .padding{
+        padding: 3%;
+      }
+      .margin{
+        margin-top: 5%;
+        margin-bottom: 5%;
+      }
+      input#subject {
+        width: 100%;
+      }
+      .bkcolor{
+        background: #480d0321;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="row" class="margin">
+        <div class="col">
+          <h1 class="padding">Trabajo Practico 1</h1>
+          <h3 class="padding">Programacion avanzada 2</h3>
+          <p class="padding">En el trabajo se realizo un input el cual va a ser observado por dos parrafos, y estos van a imitar lo que el input hace, para esto se implemento el patron observer - observable.</p>
+        </div>
+        <div class="col-6 shadow">
+            <div class="margin">
+              <h3 class="padding">Input Observado por los Observers</h3>
+              <input class="padding" type="text" id="subject" placeholder="Escribe aqui y sera imitado por los observadores">
+              <h4 class="padding">Paragraph observer 1 </h4>
+              <p class="shadow bkcolor" id="p1">voy a copiar al input </p>
+              <button  type="button" class="btn btn-primary" id="p1watch">Observar</button>
+              <button  type="button" class="btn btn-primary" id="p1nowatch">Dejar de Observar</button>
+              <h4 class="padding">Paragraph observer 2</h4>
+              <p class="shadow bkcolor" id="p2">voy a copiar al input</p>
+              <button type="button" class="btn btn-primary" id="p2watch">Observar</button>
+              <button type="button" class="btn btn-primary" id="p2nowatch">Dejar de Observar</button>
+           </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+          // Extend a object
+      function extend( obj, extension ){
+      for ( var key in extension ){
+        obj[key] = extension[key];
+      }
+      }
+
+      // References to our DOM elements
+
+      const subjectInput = document.getElementById( "subject" ),
+            observerp1 = document.getElementById( "p1" ),
+            observerp2 = document.getElementById( "p2" ),
+            p1watch = document.getElementById( "p1watch" ),
+            p1nowatch = document.getElementById( "p1nowatch" ),
+            p2watch = document.getElementById( "p2watch" ),
+            p2nowatch = document.getElementById( "p2nowatch" );
+
+      // Extend subject for the input
+      extend( subjectInput, new Subject() );
+      // extend observer for the observer paragraph
+      extend( observerp1, new Observer() );
+      extend( observerp2, new Observer() );
+
+      // override update functions for observer
+      observerp1.update = function( text ){
+        observerp1.textContent = text;
+      }
+      observerp2.update = function( text ){
+        observerp2.textContent = text
+      }
+
+      //adding observers for subjectInput
+      subjectInput.addObserver( observerp1 );
+      subjectInput.addObserver( observerp2 );
+
+      // eventListen definition
+      subjectInput.addEventListener('keyup', function( data ) {
+        subjectInput.notify(data.target.value);
+      });
+      p1watch.addEventListener('click', function(){
+        subjectInput.addObserver( observerp1 );
+      });
+      p1nowatch.addEventListener('click', function(){
+        subjectInput.removeObserver( observerp1 );
+      });
+      p2watch.addEventListener('click', function(){
+        subjectInput.addObserver( observerp2 );
+      });
+      p2nowatch.addEventListener('click', function(){
+        subjectInput.removeObserver( observerp2 );
+      });
+
+    </script>
+  </body>
+</html>
