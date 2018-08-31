@@ -17,7 +17,7 @@ ObserverList.prototype.get = function( index ){
 };
 
 ObserverList.prototype.indexOf = function( obj, startIndex ){
-  var i = startIndex;
+  let i = startIndex;
 
   while( i < this.observerList.length ){
     if( this.observerList[i] === obj ){
@@ -37,7 +37,7 @@ ObserverList.prototype.removeAt = function( index ){
 function Subject(){
   this.observers = new ObserverList();
 }
- 
+
 Subject.prototype.addObserver = function( observer ){
   this.observers.add( observer );
 };
@@ -47,11 +47,14 @@ Subject.prototype.removeObserver = function( observer ){
 };
 
 Subject.prototype.notify = function( context ){
-  var observerCount = this.observers.count();
+  let observerCount = this.observers.count();
   for(var i=0; i < observerCount; i++){
     this.observers.get(i).update( context );
   }
 };
+ Subject.prototype.countObservers = function(){
+   return this.observers.count();
+ }
 
 // The Observer
 function Observer(){
