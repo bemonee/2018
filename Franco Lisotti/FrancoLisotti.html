@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Franco Lisotti</title>
+</head>
+<body>
+  <ul id="novel">Novel</ul>
+  <hr>
+  <ul id="dictionary">Dictionary</ul>
+  <hr>
+  <ul id="dictionary2">Dictionary 2</ul>
+</body>
+<script>
+// Novel constructor
+function Novel( options ) {
+
+  this.pages = options.pages || 253;
+  this.author = options.author || "JK Rowling";
+  this.color = options.color || "silver";
+ 
+}
+ 
+// Dictionary constructor
+function Dictionary( options){
+ 
+  this.state = options.state || "used";
+  this.lenguage = options.lenguage || "spanish";
+  this.color = options.color || "blue";
+}
+ 
+ 
+// Book factory
+function BookFactory() {}
+ 
+// Default BookClass is Novel
+BookFactory.prototype.BookClass = Novel;
+ 
+// Factory method for new books
+BookFactory.prototype.createBook = function ( options ) {
+ 
+  switch(options.booktype){
+    case "novel":
+      this.BookClass = Novel;
+      break;
+    case "dictionary":
+      this.BookClass = Dictionary;
+      break;
+  }
+ 
+  return new this.BookClass( options );
+ 
+};
+
+var NovelFactory = new BookFactory();
+var novel = NovelFactory.createBook( {
+            booktype: "novel",
+            color: "yellow",
+            pages: 456 } );
+
+console.log( novel );
+
+var dictionary = NovelFactory.createBook( {
+                      booktype: "dictionary",
+                      state: "like new",
+                      color: "red",
+                      lenguage: "english" } );
+ 
+ 
+console.log( dictionary );
+
+function DictionaryFactory () {}
+DictionaryFactory.prototype = new BookFactory();
+DictionaryFactory.prototype.BookClass = Dictionary;
+ 
+var dictionaryFactory = new DictionaryFactory();
+var myOldDictionary = dictionaryFactory.createBook( {
+                    state: "old",
+                    color: "pink",
+                    lenguage: "latin" } );
+ 
+
+console.log( myOldDictionary );
+
+// Show novel
+var node = document.createElement("li");
+var node2 = document.createElement("li");
+var node3 = document.createElement("li");
+
+var textnode = document.createTextNode(novel.color);
+node.appendChild(textnode);
+document.getElementById("novel").appendChild(node);
+
+textnode = document.createTextNode(novel.author);
+node2.appendChild(textnode);
+document.getElementById("novel").appendChild(node2);
+
+textnode = document.createTextNode(novel.pages);
+node3.appendChild(textnode);
+document.getElementById("novel").appendChild(node3);
+
+// Show dictionary
+
+node = document.createElement("li");
+node2 = document.createElement("li");
+node3 = document.createElement("li");
+
+var textnode = document.createTextNode(dictionary.state);
+node.appendChild(textnode);
+document.getElementById("dictionary").appendChild(node);
+
+textnode = document.createTextNode(dictionary.color);
+node2.appendChild(textnode);
+document.getElementById("dictionary").appendChild(node2);
+
+textnode = document.createTextNode(dictionary.lenguage);
+node3.appendChild(textnode);
+document.getElementById("dictionary").appendChild(node3);
+
+
+// Show second dictionary
+
+node = document.createElement("li");
+node2 = document.createElement("li");
+node3 = document.createElement("li");
+
+var textnode = document.createTextNode(myOldDictionary.state);
+node.appendChild(textnode);
+document.getElementById("dictionary2").appendChild(node);
+
+textnode = document.createTextNode(myOldDictionary.color);
+node2.appendChild(textnode);
+document.getElementById("dictionary2").appendChild(node2);
+
+textnode = document.createTextNode(myOldDictionary.lenguage);
+node3.appendChild(textnode);
+document.getElementById("dictionary2").appendChild(node3);
+
+
+
+</script>
+</html>
