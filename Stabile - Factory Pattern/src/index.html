@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<title></title>
+	<link rel="stylesheet" href="css/bootstrap.css">
+
+	<style>
+		* {
+			box-sizing: border-box;
+		}
+
+		body {
+			background-image: url("img/wow.jpg");
+			background-repeat: no-repeat;
+			background-size: 100%;
+		}
+
+		#child_characters {
+			background-color: white;
+			overflow-x: hidden;
+			box-shadow: 5px 5px 10px black;
+		}
+
+		.card {
+			align-content: center;
+			box-shadow: 5px 5px 10px black;
+		}
+	</style>
+</head>
+
+<body class="container py-5">
+
+	<main class="row">
+		<section id="card_container" class="col-sm-4">
+			<div class="card bg-light p-0">
+				<div class="card-body p-0">
+					<h1 class="card-header text-center">Customize your Character</h1>
+					<article id="form" class="px-3 pt-3">
+						<div class="form-group form-inline">
+							<label for="name_input" class="mr-2">Nickname: </label>
+							<input type="text" id="name_input" name="name" class="form-control d-block" placeholder="Set the name of your character"
+							 value="" required>
+						</div>
+						<div class="form-group form-inline">
+							<label for="" class="mr-2">Gender: </label>
+							<div class="form-check form-check-inline">
+								<input type="radio" id="gender_male" name="gender" class="form-check-input" value="Male" checked>
+								<label for="gender_male">Male</label>
+							</div>
+							<div class="form-check form-check-inline">
+								<input type="radio" id="gender_female" name="gender" class="form-check-input" value="Female">
+								<label for="gender_female">Female</label>
+							</div>
+						</div>
+						<div class="form-group form-inline">
+							<label for="color_input" class="mr-2">Skin color: </label>
+							<input type="color" id="color_input" name="color" class="form-control" required>
+						</div>
+						<div class="form-group form-inline">
+							<label for="height_input" class="mr-2">Height: </label>
+							<input type="text" id="height_input" name="height" class="form-control" placeholder="Set his/her height" value="" required>
+						</div>
+						<div class="form-group form-inline">
+							<label for="weapon_input" class="mr-2">Choose a weapon: </label>
+							<select name="weapon" id="weapon_input" class="form-control" required>
+								<option selected>Axe</option>
+								<option>Sword</option>
+								<option>Bow</option>
+								<option>Oracle</option>
+								<option>Hammer</option>
+							</select>
+						</div>
+						<div class="form-group form-inline">
+							<label for="character_input" class="mr-2">Choose a class: </label>
+							<select name="character" id="character_input" class="form-control" required>
+								<option value="warrior" selected>Warrior</option>
+								<option value="mage">Mage</option>
+								<option value="archer">Archer</option>
+								<option value="hunter">Hunter</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<input type="submit" id="btn_submit" value="Add Character" class="btn btn-block btn-success">
+						</div>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section id="container_characters" class="col-sm-8">
+			<div id="child_characters">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th scope="col">Class</th>
+							<th scope="col">Name</th>
+							<th scope="col">Gender</th>
+							<th scope="col">Color Skin</th>
+							<th scope="col">Height</th>
+							<th scope="col">Weapon</th>
+							<th scope="col">Health</th>
+							<th scope="col">Dead?</th>
+						</tr>
+					</thead>
+					<tbody>
+
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</main>
+
+
+
+	<script type="text/javascript" src="js/script.js"></script>
+</body>
+
+</html>
