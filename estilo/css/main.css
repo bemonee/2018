@@ -1,0 +1,21 @@
+body {
+     background-attachment: fixed;
+     background-image: url(../images/formation.jpg);
+}
+#div_transparente {
+        background-color: rgba(0, 0, 0, 0.2);
+}
+.div_trans2 {
+        background-color: rgba(0, 0, 0, 0.2);
+}
+.div_trans5 {
+        background-color: rgba(0, 0, 0, 0.5);
+}
+.div_trans8 {
+        background-color: rgba(0, 0, 0, 0.8);
+}
+.divPadding{
+  padding: 20px;
+}
+
+-->
