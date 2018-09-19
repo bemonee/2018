@@ -1,49 +1,53 @@
 <html>
 
 <head>
+    <title>Tp4 Facundo Lastra</title>
+    <meta charset="UTF-8">
 </head>
 
 <body>
     <main>
         <div id="app">
             <h1>Super listado de personas</h1>
+            <section>
+                <input type="text" v-model="persona.nombre" placeholder="Ingresar nombre de persona">
+                <div>
+                    <input type="radio" v-model="persona.sexo" value="Masculino" id="masculino">
+                    <label for="masculino">Masculino</label>
+                </div>
+                <div>
+                    <input type="radio" v-model="persona.sexo" value="Femenino" id="femenino">
+                    <label for="femenino">Femenino</label>
+                </div>
+                <div>
+                    <input type="radio" v-model="persona.sexo" value="Otro" id="otro">
+                    <label for="otro">otro</label>
+                </div>
+                <input type="number" v-model="persona.edad" placeholder="edad">
+                <button @click="agregar()">Agregar</button>
+            </section>
+            <section>
+                <h2>¿Como desea visualizar?</h2>
+                <select name="options" v-model="filtro">
+                    <option value="todos" selected>Todos</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Femenino">Femenino</option>
+                    <option value="Otro">Otro</option>
+                </select>
 
-            <input type="text" v-model="persona.nombre" placeholder="Ingresar nombre de persona">
-            <div>
-                <input type="radio" v-model="persona.sexo" value="Masculino" id="masculino">
-                <label for="masculino">Masculino</label>
-            </div>
-            <div>
-                <input type="radio" v-model="persona.sexo" value="Femenino" id="femenino">
-                <label for="femenino">Femenino</label>
-            </div>
-            <div>
-                <input type="radio" v-model="persona.sexo" value="Otro" id="otro">
-                <label for="otro">otro</label>
-            </div>
-            <input type="number" v-model="persona.edad" placeholder="edad">
-            <button @click="agregar()">Agregar</button>
-
-            <h2>¿Como desea visualizar?</h2>
-            <select name="options" v-model="filtro">
-                <option value="todos" selected>Todos</option>
-                <option value="Masculino">Masculino</option>
-                <option value="Femenino">Femenino</option>
-                <option value="Otro">Otro</option>
-            </select>
-
-            <ul>
-                <li v-for="(persona, index) in getPersons" :key="index">
-                    <a @click="borrarPersona(persona.id)">{{ persona.nombre }} - {{ persona.sexo}} - {{persona.edad}}</a>
-                </li>
-            </ul>
-            <h3>Hay {{total}} persona/s</h3>
-
+                <ul>
+                    <li v-for="(persona, index) in getPersons" :key="index">
+                        <a @click="borrarPersona(persona.id)">{{ persona.nombre }} - {{ persona.sexo}} -
+                            {{persona.edad}}</a>
+                    </li>
+                </ul>
+                <h3>Hay {{total}} persona/s</h3>
+            </section>
         </div>
     </main>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script>
-        const appi = new Vue({
+        const instancia1 = new Vue({
             el: "#app",
             data: {
                 idInicial: 0,
