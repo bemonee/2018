@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta content="text/html;" http-equiv="content-type" charset="utf-8">
+
+	</head>
+
+	<body>
+		<main id="app">
+			<header style="margin-bottom:30px">
+				<h2>Agenda</h2>
+			</header>	
+
+			<section style="margin-bottom:10px">
+				<input type="text" v-model="persona.nombre" placeholder="Nombre">
+				<input type="number" min="0" max="100" v-model="persona.edad" placeholder="Edad">
+				<input type="radio" v-model="persona.sexo" value="mujer">Mujer
+				<input type="radio" v-model="persona.sexo" value="hombre">Hombre
+
+				<button @click="agregar()">Agregar</button>
+			</section>
+
+			<section style="margin-bottom:20px">
+				<input type="radio" v-model="filtro" value="todos"> Ver todos
+				<input type="radio" v-model="filtro" value="mujer"> Ver mujeres
+				<input type="radio" v-model="filtro" value="hombre"> Ver hombres		
+			</section>
+
+			<section style="margin-bottom:30px">
+				<li v-for="(persona) in personasFiltradas">
+					<span style="margin-right:50px;">{{persona.nombre}}, {{persona.sexo}}. {{persona.edad}} años.</span>
+					<a @click="borrarPersona(persona.id)" style="color:red;">  Eliminar</a>
+				</li>
+			</section>
+
+			<footer>
+				<span>Hay {{total}} personas en total</span>
+			</footer>
+		</main>
+
+		<script src="vue.js"></script>
+		<script>
+			new Vue({
+				el: "#app",
+				data:{
+					idInicial: 0,
+					personas: [],
+					persona: {
+						nombre: "",
+						edad: "",
+						sexo: "mujer"
+					},
+					filtro: "todos"
+				},
+				computed: {
+					total() {
+                        return this.personas.length;
+                    },
+					personasFiltradas(){
+						if(this.filtro == "todos")
+                    		return this.personas;
+                    	else
+                    		return this.personas.filter(persona => persona.sexo == this.filtro);
+					}
+				},
+				methods: {
+					agregar() {
+						if(this.persona.nombre != null &&
+							this.persona.nombre.length > 0 &&
+						 	this.persona.edad != null &&
+						 	this.persona.edad.length > 0) 
+						{
+							this.personas.push({
+								id: this.idInicial++,
+								nombre: this.persona.nombre,
+								edad: this.persona.edad,
+								sexo: this.persona.sexo
+							});
+							this.persona.nombre = "";
+							this.persona.edad = "";
+							this.persona.sexo = "mujer";	
+						} else {
+							alert('Debe ingresar todos los campos');
+						}					
+					},
+                    borrarPersona(id) {
+                        this.personas = this.personas.filter(persona => persona.id !== id);
+                    }
+				}
+			})
+		</script>
+	</body>
+</html>
