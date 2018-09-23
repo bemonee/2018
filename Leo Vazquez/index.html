@@ -1,0 +1,111 @@
+<html>
+<body>
+
+	<div id="app">
+		
+		<h1 v-if="total>1">Hay {{total}} personas cargadas</h1>
+		<h1 v-else-if="total===1">Hay {{total}} persona cargada</h1>
+		<h1 v-else>No hay personas cargadas</h1>
+
+		<form>
+			<div v-if="errors.length">
+				<ul>
+					<li style="color:red;" v-for="error in errors">{{ error }}</li>
+				</ul>
+			</div>
+			
+			<input type="text" v-model="persona.nombre" placeholder="Nombre">
+			<input type="number" max=120 min=4 v-model="persona.edad" placeholder="Edad">
+
+			<div>
+				<input v-model="persona.sexo" type="radio" id="man" 
+				name="sexo" value="Hombre" checked />
+				<label for="man">Hombre</label>
+			</div>
+			<div>
+				<input v-model="persona.sexo" type="radio" id="woman" 
+				name="sexo" value="Mujer" />
+				<label for="woman">Mujer</label>
+			</div>
+		</form>
+
+		<button @click="agregar()">Agregar</button>
+		<button @click="setMostrarSexo('todos')">Mostrar todos</button>
+		<button @click="setMostrarSexo('Hombre')">Mostrar Hombres</button>
+		<button @click="setMostrarSexo('Mujer')">Mostrar Mujeres</button>
+
+		<ul>
+			<li v-for="(persona, index) in personas" :key="index" 
+			v-if = "mostrarSexo ==='todos' || mostrarSexo === persona.sexo">
+				<a @click="borrarPersona(persona.id)"> 
+					{{mostrarPersona(index)}}
+				</a>
+			</li>
+		</ul>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+	<script>
+		new Vue({
+			el: "#app",
+			data: {
+				errors:[],
+				mostrarSexo: 'todos',
+				idInicial: 0,
+				personas: [],
+				persona: {		
+				}
+			},
+			computed:{
+				total(){
+					return this.personas.length;
+				}
+			},
+			methods: {
+				agregar() {
+					if(this.revisarForm()){
+						this.personas.push({
+							id: this.idInicial++,
+							nombre: this.persona.nombre,
+							edad: this.persona.edad,
+							sexo: this.persona.sexo
+						});
+
+						this.persona.nombre = "";
+						this.persona.edad = null;
+						this.persona.sexo = "";
+					}
+				},
+				borrarPersona(id) {
+					this.personas = this.personas.filter(persona => persona.id !== id);
+				},
+				revisarForm(){
+					this.errors = [];
+					if (this.persona.nombre && this.persona.edad && this.persona.sexo) {
+						return true;
+					}
+
+					if (!this.persona.nombre) {
+						this.errors.push('Falta el nombre.');
+					}
+					if (!this.persona.edad) {
+						this.errors.push('Falta la edad.');
+					}
+					if (!this.persona.sexo) {
+						this.errors.push('Falta el sexo.');
+					}
+				},
+				setMostrarSexo(sexo){
+					this.mostrarSexo = sexo;
+				},
+				mostrarPersona(index){
+					let persona = this.personas[index];
+					return persona.nombre + ", " + persona.edad + ", " + persona.sexo;
+				}
+			}
+		})
+	</script>
+
+</body>
+</html>
