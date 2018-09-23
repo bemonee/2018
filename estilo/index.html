@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <title>VUE Segundos Pasos</title>    
+        <meta charset="UTF-8">        
+        <link rel="stylesheet" href="css/bootstrap.css">                
+        <link rel="stylesheet" href="css/main.css">          
+    </head>
+    <body>
+        <header class="divPadding">
+            <h1 class="text-white">VUE Segundos Pasos - Tercer TP</h1>
+        </header>
+        <main class="container">
+            <section id="app" class="text-white div_trans8 divPadding"> 
+                <h2>Ingreso de Personal</h2>
+
+                <div class="form-group">
+                    <label>Nombre </label>
+                    <input type="text" class="form-control" ref="focus" v-model="persona.nombre">
+                </div>
+                <div class="form-group">
+                    <label>Edad </label>
+                    <input type="number" class="form-control" min="1" max="120" pattern="[1,9]{2}" required v-model="persona.edad">
+                </div>
+                <div class="form-group">
+                    <label>Sexo </label>
+                    <input type="radio" name="genero" v-model="persona.sexo" value="M" checked> Masculino
+                    <input type="radio" name="genero" v-model="persona.sexo" value="F"> Femenino          
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="form-control btn btn-primary" @click="agregar()">Agregar</button>
+                </div>
+
+                <div class="form-group" v-if="total>0">
+                    <label>Listado </label>
+                    <input type="radio" name="listado" v-model="listado" value="T" title="Mostrar Todo el Personal" checked> Todos
+                    <input type="radio" name="listado" v-model="listado" value="M" title="Mostrar Personal Masculino"> Masculino
+                    <input type="radio" name="listado" v-model="listado" value="F" title="Mostrar Personal Femenino"> Femenino
+                </div>
+                <p>&nbsp;</p>        
+                <table class="table table-striped text-white" v-if="total > 0">
+                    <thead>
+                        <tr>
+                            <th width="10%"></th>
+                            <th width="70%">Nombre y Apellido</th>
+                            <th width="10%">Sexo</th>
+                            <th width="10%">Edad</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </tfoot>                    
+                    <tbody>
+                        <tr v-for="(persona, index) in personas" :key="index">                    
+                            <template v-if="listado==='T' || listado==persona.sexo">
+                                <td align="right"><a class="btn btn-default" data-toggle="tooltip" v-bind:title='"Eliminar a "+persona.nombre' @click="borrarPersona(persona.id)"><img src="images/b_del.png" border="0"></a></td>
+                                <td> {{ persona.nombre }}</td>
+                                <td> {{ persona.sexo }}</td>
+                                <td> {{ persona.edad }}</td>
+                            </template>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    listado: "T",
+                    idInicial: 0,
+                    personas: [],
+                    persona: {
+                        nombre: "",
+                        sexo: "M",
+                        edad: "",
+                    }
+                },
+                computed: {
+                    total() {
+                        return this.personas.length;
+                    }
+                },
+                methods: {
+                    agregar() {
+                        this.personas.push({
+                            id: this.idInicial++,
+                            nombre: this.persona.nombre,
+                            sexo: this.persona.sexo,
+                            edad: this.persona.edad
+                        });
+
+                        this.persona.nombre = "";
+                        this.persona.sexo = "M";
+                        this.persona.edad = "";
+                        this.setFocus();
+                    },
+                    borrarPersona(id) {
+                        this.personas = this.personas.filter(persona => persona.id !== id);
+                    },
+                    setFocus: function()
+                    {
+                        this.$refs.focus.focus();
+                    },                    
+                    beforeCreate: function()
+                    {
+                        this.$refs.focus.focus();
+                    }                          
+                }
+            });
+        </script>
+        <template setFocus()>
+        </template>
+    </body>
+</html>
