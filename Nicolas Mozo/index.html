@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> TP4 </title>
+	<!-- VUE.js -->
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<script type="text/javascript" src="lib/index.js"></script>
+</head>
+<body>
+	<main id="app">
+
+		<form-user :ready="newUser"></form-user>
+		<filter-user :sexs="sexsLabels" :active="updateActiveSex"></filter-user>		
+
+		<ul>
+			<item-user
+				v-for="user in users"
+				v-if="user.sex.toLowerCase() == filter.toLowerCase()"
+				:user="user"
+				:key="user.id"></item-user>
+		</ul>
+	</main>
+
+	<script type="text/javascript">
+		var app = new Vue({
+			el: "#app",
+			data: {
+				id: 0,
+				users: [],
+				filter: 'Undefined',
+				sexsLabels: ['Female', 'Male', 'Undefined']
+			}, 
+			methods: {
+				newUser(user){
+					this.users.push(user)
+				},
+				updateActiveSex(result){
+					this.filter = result
+				}
+			}
+		});
+	</script>
+</body>
+</html>
