@@ -27,10 +27,8 @@
             </div>
             <div class="col-auto form-group">
                 <label for="ageInput">Age</label>
-                <select id="ageInput" class="form-control" v-model="person.age">
-                    <option value="" selected></option>
-                    <option v-for="age in possibleAges" :value="age">{{ age }}</option>
-                </select>
+                <input type="number" :min="ageRange.min" :max="ageRange.max" class="form-control" id="ageInput"
+                    aria-describedby="ageHelp" placeholder="Enter Age" v-model.number="person.age">
             </div>
             <div class="col-auto form-group">
                 <label>Gender</label>

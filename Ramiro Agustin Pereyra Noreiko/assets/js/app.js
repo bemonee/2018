@@ -3,42 +3,42 @@ var app = new Vue({
     data: {
         // Flexible input definition
         possibleGenders: ["m", "f"], // "Les disputades" compatibility
-        possibleAges: Array.from({
-            length: 100
-        }, (v, k) => k + 1), // 0...100
+        ageRange: {
+            min: 0,
+            max: 200
+        },
         // Two-way binding
         person: {
             name: "",
-            age: 0,
+            age: "",
             gender: ""
         },
-        // Section core properties
-        persons: [],
         validationError: "",
-        filter: null
+        filter: null,
+        // Section core properties
+        persons: []
     },
     computed: {
-        formIsInvalid: function () {
+        formIsInvalid() {
             return (this.validationError.length > 0);
         },
-        thereArePersons: function () {
+        thereArePersons() {
             return (this.persons.length > 0);
         },
-        thereAreFilteredPersons: function () {
+        thereAreFilteredPersons() {
             return (this.getFilteredPersons.length > 0);
         },
-        getFilteredPersons: function () {
+        getFilteredPersons() {
             if (this.filter === null) {
                 return this.persons;
             }
-            const f = this.filter;
             return this.persons.filter(p =>
-                p.gender === f
+                p.gender === this.filter
             );
         }
     },
     methods: {
-        onSubmit: function () {
+        onSubmit() {
             if (this.validateForm()) {
                 this.persons.push({
                     name: this.person.name,
@@ -48,16 +48,16 @@ var app = new Vue({
                 this.clearInputs();
             }
         },
-        validateForm: function () {
+        validateForm() {
             if (this.person.name.length < 1) {
                 this.validationError = "Name is required.";
                 return false;
             }
 
-            const fromAge = this.possibleAges[0];
-            const toAge = this.possibleAges[this.possibleAges.length - 1];
-            if (this.person.age < fromAge || this.person.age > toAge) {
-                this.validationError = "Age is required.";
+            const ageIsInteger = Number.isInteger(this.person.age);
+            const ageIsInRange = (this.person.age >= this.ageRange.min || this.person.age <= this.ageRange.max);
+            if (!ageIsInteger || !ageIsInRange) {
+                this.validationError = "Age is invalid.";
                 return false;
             }
 
@@ -69,15 +69,15 @@ var app = new Vue({
             this.validationError = "";
             return true;
         },
-        setFilter: function (gender, $event) {
+        setFilter(gender) {
             this.filter = gender;
         },
-        clearFilter: function () {
+        clearFilter() {
             this.filter = null
         },
-        clearInputs: function () {
+        clearInputs() {
             this.person.name = "";
-            this.person.age = 0;
+            this.person.age = "";
             this.person.gender = "";
         }
     }
