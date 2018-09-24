@@ -32,8 +32,8 @@ var app = new Vue({
             if (this.filter === null) {
                 return this.persons;
             }
-            return this.persons.filter(p =>
-                p.gender === this.filter
+            return this.persons.filter(person =>
+                person.gender === this.filter
             );
         }
     },
